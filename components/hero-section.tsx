@@ -11,7 +11,7 @@ export default function HeroSection() {
 
       <div className="max-w-4xl mx-auto ">
         <Star />
-        <h1 className="text-4xl md:text-4xl font-bold text-gray-800 mb-6">
+        <h1 className="text-4xl md:text-4xl font-bold text-gray-800 mb-6 leading-normal">
           Designed for your business{" "}
           <span className="py-1 w-2 bg-blue-700 rounded-l-sm text-blue-700">
             |
