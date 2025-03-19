@@ -13,6 +13,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Star2 from "./Star2";
 
 export default function EstimateSection({ activeTab }: { activeTab: string }) {
   console.log("activeTab " + activeTab);
@@ -348,11 +349,17 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
       ref={calculatorRef}
     >
       <div className="relative mb-8">
-        <h2 className="text-2xl md:text-3xl font-bold mb-2">
+        <Star2 />
+        <h2 className="text-2xl md:text-3xl font-bold mb-2 flex flex-col leading-10">
           Estimate your{" "}
-          <span className="bg-blue-100 text-blue-600 px-2 py-1 rounded">
+          <div>
+          <span className="py-0 w-2 bg-blue-700 rounded-l-sm text-blue-700">
+            |
+          </span>
+          <span className="bg-blue-100 bg-opacity-60  text-blue-700 px-2 py-0 pr-10  rounded">
             monthly cost
           </span>
+          </div>
         </h2>
         <p className="text-gray-600 mb-8">
           Enter your estimated monthly usage, and we'll provide a plan that best
