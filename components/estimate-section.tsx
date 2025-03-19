@@ -10,7 +10,8 @@ import Image from "next/image";
 
 export default function EstimateSection({ activeTab }: { activeTab: string }) {
   console.log("activeTab " + activeTab);
-  const { formatPrice, convertPrice } = useCountry();
+  const { formatPrice, convertPrice, country } = useCountry();
+  
   const [chatbotActive, setChatbotActive] = useState(activeTab === "chatbot");
   const [voicebotActive, setVoicebotActive] = useState(
     activeTab === "voicebot"
@@ -314,6 +315,23 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
     window.selectPlanAndScroll = selectPlanAndScroll;
   }, []);
 
+  const FloatingPriceDisplay = () => {
+    return (
+      <div className="fixed bottom-0 left-0 right-0 bg-blue-600 text-white p-4 shadow-lg md:hidden z-50 flex justify-between items-center">
+        <div>
+          <div className="text-lg font-bold">
+            {formatPrice(convertPrice(totalPrice))}
+            <span className="text-sm font-normal opacity-80">/month</span>
+          </div>
+          <div className="text-xs opacity-80">Total estimated cost</div>
+        </div>
+        <Button className="bg-[#FDB137] hover:bg-[#f0a52c] text-white">
+          Start free trial
+        </Button>
+      </div>
+    );
+  };
+
   return (
     <section
       className="py-8 md:py-12 lg:py-16 px-4 sm:px-8 md:px-12 lg:px-20 xl:px-28"
@@ -330,6 +348,20 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
           Enter your estimated monthly usage, and we'll provide a plan that best
           suits your needs
         </p>
+        {/* Mobile Price Summary */}
+        <div className="md:hidden bg-blue-50 p-4 rounded-lg mb-6">
+          <div className="flex justify-between items-center">
+            <div>
+              <div className="text-sm text-gray-600">Current estimate:</div>
+              <div className="text-xl font-bold text-blue-600">
+                {formatPrice(convertPrice(totalPrice))}
+                <span className="text-sm font-normal">/month</span>
+              </div>
+            </div>
+            <div className="text-xs text-gray-500">{country === "IN" ? "₹ Indian Rupees" : "$ US Dollars"}</div>
+          </div>
+        </div>
+
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -1084,6 +1116,7 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
           )}
         </div>
       </div>
+      <FloatingPriceDisplay />
     </section>
   );
 }
