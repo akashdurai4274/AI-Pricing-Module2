@@ -19,7 +19,7 @@ export default function Home() {
         <main className="container mx-auto px-4 py-8">
           <HeroSection />
           <PricingTabs />
-          <EstimateSection />
+          {/* <EstimateSection /> */}
         </main>
       </div>
     </CountryProvider>
