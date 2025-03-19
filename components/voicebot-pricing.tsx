@@ -1,42 +1,51 @@
-"use client"
+"use client";
 
-import { Check, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useCountry } from "@/context/country-context"
+import { Check, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useCountry } from "@/context/country-context";
 
 interface VoicebotPricingProps {
-  onCalculatePrice: (plan: string) => void
+  onCalculatePrice: (plan: string) => void;
 }
 
-export default function VoicebotPricing({ onCalculatePrice }: VoicebotPricingProps) {
-  const { formatPrice, convertPrice } = useCountry()
+export default function VoicebotPricing({
+  onCalculatePrice,
+}: VoicebotPricingProps) {
+  const { formatPrice, convertPrice } = useCountry();
 
-  const fluentPrice = 14999
-  const lucidPrice = 39999
+  const fluentPrice = 14999;
+  const lucidPrice = 39999;
 
   const handleCalculatePrice = (plan: string) => {
     // Call the global function if it exists
     if (typeof window !== "undefined" && window.selectPlanAndScroll) {
-      window.selectPlanAndScroll("voicebot", plan)
+      window.selectPlanAndScroll("voicebot", plan);
     } else {
       // Fallback to the prop function
-      onCalculatePrice(plan)
+      onCalculatePrice(plan);
     }
-  }
+  };
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
       {/* Fluent Plan */}
       <div className="bg-white rounded-lg p-6 shadow-sm">
-        <h3 className="text-lg md:text-xl font-semibold text-blue-600 mb-1">Fluent</h3>
+        <h3 className="text-lg md:text-xl font-semibold text-blue-600 mb-1">
+          Fluent
+        </h3>
         <p className="text-sm text-gray-500 mb-4">Month</p>
 
         <div className="mb-4">
-          <span className="text-xl md:text-2xl font-bold">{formatPrice(convertPrice(fluentPrice))}</span>
+          <span className="text-xl md:text-2xl font-bold">
+            {formatPrice(convertPrice(fluentPrice))}
+          </span>
           <span className="text-gray-500 text-xs md:text-sm">/month</span>
         </div>
 
-        <button onClick={() => handleCalculatePrice("fluent")} className="text-blue-600 text-sm mb-6 underline">
+        <button
+          onClick={() => handleCalculatePrice("fluent")}
+          className="text-blue-600 text-sm mb-6 underline"
+        >
           Calculate your price
         </button>
 
@@ -85,20 +94,29 @@ export default function VoicebotPricing({ onCalculatePrice }: VoicebotPricingPro
           </li>
         </ul>
 
-        <Button className="w-full bg-white text-black border border-gray-200 hover:bg-gray-50">Choose Plan</Button>
+        <Button className=" mt-5 w-full border border-[#FDB137] text-[#FDB137] font-semibold py-3 px-6 rounded-lg shadow-md shadow-[#FDB137]/50 bg-white transition">
+          Start Free Trial
+        </Button>
       </div>
 
       {/* Lucid Plan */}
       <div className="bg-white rounded-lg p-6 shadow-sm">
-        <h3 className="text-lg md:text-xl font-semibold text-blue-600 mb-1">Lucid</h3>
+        <h3 className="text-lg md:text-xl font-semibold text-blue-600 mb-1">
+          Lucid
+        </h3>
         <p className="text-sm text-gray-500 mb-4">Month</p>
 
         <div className="mb-4">
-          <span className="text-xl md:text-2xl font-bold">{formatPrice(convertPrice(lucidPrice))}</span>
+          <span className="text-xl md:text-2xl font-bold">
+            {formatPrice(convertPrice(lucidPrice))}
+          </span>
           <span className="text-gray-500 text-xs md:text-sm">/month</span>
         </div>
 
-        <button onClick={() => handleCalculatePrice("lucid")} className="text-blue-600 text-sm mb-6 underline">
+        <button
+          onClick={() => handleCalculatePrice("lucid")}
+          className="text-blue-600 text-sm mb-6 underline"
+        >
           Calculate your price
         </button>
 
@@ -147,12 +165,16 @@ export default function VoicebotPricing({ onCalculatePrice }: VoicebotPricingPro
           </li>
         </ul>
 
-        <Button className="w-full bg-white text-black border border-gray-200 hover:bg-gray-50">Choose Plan</Button>
+        <Button className="w-full border border-[#FDB137] text-[#FDB137] font-semibold py-3 px-6 rounded-lg shadow-md shadow-[#FDB137]/50 bg-white transition">
+          Start Free Trial
+        </Button>
       </div>
 
       {/* Enterprise Plan */}
       <div className="bg-blue-600 text-white rounded-lg p-6 shadow-sm">
-        <h3 className="text-lg md:text-xl font-semibold mb-1">Eloquent (Enterprise)</h3>
+        <h3 className="text-lg md:text-xl font-semibold mb-1">
+          Eloquent (Enterprise)
+        </h3>
         <p className="text-sm opacity-80 mb-4"></p>
 
         <div className="mb-4">
@@ -206,9 +228,10 @@ export default function VoicebotPricing({ onCalculatePrice }: VoicebotPricingPro
           </li>
         </ul>
 
-        <Button className="w-full bg-[#FDB137] hover:bg-[#f0a52c] text-white">Choose Plan</Button>
+        <Button className="w-full bg-[#FDB137] hover:bg-[#f0a52c] text-white">
+          Start Free Trial
+        </Button>
       </div>
     </div>
-  )
+  );
 }
-
