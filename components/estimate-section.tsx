@@ -908,7 +908,7 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
         </div>
 
         {/* Custom Package Summary */}
-        <div className="bg-blue-600 text-white p-6 rounded-lg shadow-sm">
+        <div className="bg-blue-600 mb-10 text-white p-6 rounded-lg shadow-sm">
           <div className="flex items-center justify-center mb-6">
             <div className="flex items-center justify-center gap-2">
               <span
