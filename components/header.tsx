@@ -13,14 +13,26 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Us from "./Us";
 import India from "./India";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Header() {
   const { country, setCountry } = useCountry();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const handleCountryChange = (newCountry: string) => {
+    setCountry(newCountry);
+    // Force refresh prices by triggering a small state update
+    const event = new CustomEvent("countryChanged", { detail: newCountry });
+    window.dispatchEvent(event);
   };
 
   return (
@@ -41,106 +53,100 @@ export default function Header() {
 
         <div className="flex items-center gap-2">
           {/* Mobile menu button */}
-        <button
-          className="md:hidden flex items-center"
-          onClick={toggleMobileMenu}
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          <button
+            className="md:hidden flex items-center"
+            onClick={toggleMobileMenu}
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
 
-        <nav className="hidden md:flex items-center space-x-4">
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-gray-700">
-              Products <ChevronDown size={16} />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>Chatbot</DropdownMenuItem>
-              <DropdownMenuItem>Voicebot</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <nav className="hidden md:flex items-center space-x-4">
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-gray-700">
+                Products <ChevronDown size={16} />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>Chatbot</DropdownMenuItem>
+                <DropdownMenuItem>Voicebot</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-gray-700">
-              Industry <ChevronDown size={16} />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>Healthcare</DropdownMenuItem>
-              <DropdownMenuItem>E-commerce</DropdownMenuItem>
-              <DropdownMenuItem>Finance</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-gray-700">
+                Industry <ChevronDown size={16} />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>Healthcare</DropdownMenuItem>
+                <DropdownMenuItem>E-commerce</DropdownMenuItem>
+                <DropdownMenuItem>Finance</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-gray-700">
-              Use cases <ChevronDown size={16} />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>Customer Support</DropdownMenuItem>
-              <DropdownMenuItem>Lead Generation</DropdownMenuItem>
-              <DropdownMenuItem>Booking</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-gray-700">
+                Use cases <ChevronDown size={16} />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>Customer Support</DropdownMenuItem>
+                <DropdownMenuItem>Lead Generation</DropdownMenuItem>
+                <DropdownMenuItem>Booking</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-          <Link href="/features" className="text-sm font-medium text-gray-700">
-            Features
-          </Link>
-          <Link href="/about-us" className="text-sm font-medium text-gray-700">
-            About Us
-          </Link>
-          <Link href="/pricing" className="text-sm font-medium text-gray-700">
-            Pricing
-          </Link>
-          <Link href="/blogs" className="text-sm font-medium text-gray-700">
-            Blogs
-          </Link>
-        </nav>
+            <Link
+              href="/features"
+              className="text-sm font-medium text-gray-700"
+            >
+              Features
+            </Link>
+            <Link
+              href="/about-us"
+              className="text-sm font-medium text-gray-700"
+            >
+              About Us
+            </Link>
+            <Link href="/pricing" className="text-sm font-medium text-gray-700">
+              Pricing
+            </Link>
+            <Link href="/blogs" className="text-sm font-medium text-gray-700">
+              Blogs
+            </Link>
+          </nav>
 
-        <div className="flex items-center gap-4">
-          <Button className="hidden sm:flex bg-[#FDB137] hover:bg-[#f0a52c] text-white shadow-[0_4px_14px_0_rgba(253,177,55,0.4)]">
-            Book a Demo
-          </Button>
+          <div className="flex items-center gap-4">
+            <Button className="hidden sm:flex bg-[#FDB137] hover:bg-[#f0a52c] text-white shadow-[0_4px_14px_0_rgba(253,177,55,0.4)]">
+              Book a Demo
+            </Button>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1">
-              {country === "IN" ? (
-                <span className="flex items-center">
-                  {/* <Image
-                    src="/placeholder.svg?height=20&width=30"
-                    alt="India Flag"
-                    width={20}
-                    height={15}
-                    className="mr-1"
-                  /> */}
-                  <India />
-                  IN
-                </span>
-              ) : (
-                <span className="flex items-center">
-                  {/* <Image
-                    src="/placeholder.svg?height=20&width=30"
-                    alt="US Flag"
-                    width={20}
-                    height={15}
-                    className="mr-1"
-                  /> */}
-                  <Us />
-                  US
-                </span>
-              )}
-              <ChevronDown size={16} />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => setCountry("IN")}>
-                <India />
-                India (₹)
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setCountry("US")}>
-                <Us />
-                United States ($)
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+            {mounted && (
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1">
+                  {country === "IN" ? (
+                    <span className="flex items-center">
+                      <India />
+                      <span className="ml-1">IN</span>
+                    </span>
+                  ) : (
+                    <span className="flex items-center">
+                      <Us />
+                      <span className="ml-1">US</span>
+                    </span>
+                  )}
+                  <ChevronDown size={16} />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem onClick={() => handleCountryChange("IN")}>
+                    <India />
+                    India (₹)
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleCountryChange("US")}>
+                    <Us />
+                    United States ($)
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+          </div>
         </div>
       </div>
       {/* Mobile menu */}
