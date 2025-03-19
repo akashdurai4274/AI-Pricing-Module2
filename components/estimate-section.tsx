@@ -812,7 +812,7 @@ export default function EstimateSection() {
                 </div>
 
                 <div className="md:w-1/2 flex justify-center">
-                  <div className="relative w-full">
+                  <div className="w-full">
                     <img
                       src="/image.png"
                       alt="Voicebot Interface"
