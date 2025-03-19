@@ -346,21 +346,48 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
     return (
       <div className="fixed bottom-0 left-0 right-0 bg-blue-600 text-white p-4 shadow-lg md:hidden z-50 flex justify-between items-center">
         <div>
-          <div className="text-lg font-bold">
-            {totalPrice > 1000 ? (
-              "Contact Sales"
-            ) : (
-              <>
-                {formatPrice(convertPrice(totalPrice))}
-                <span className="text-sm font-normal opacity-80">/month</span>
-              </>
+          <div className="flex space-x-20">
+            {chatbotActive && (
+              <span>
+                <h2>Chatbot</h2>
+                {chatbotPricing.usage === "highIntelligence" ? (
+                  <div className="mt-2 bg-white text-yellow-400 text-xl font-bold p-3 rounded-md mb-6">
+                    <p className="text-xs">Contact Sales</p>
+                  </div>
+                ) : (
+                  <div className="flex-col text-2xl font-bold mb-6">
+                    {formatPrice(convertPrice(chatbotPricing.totalPrice))}{" "}
+                    <span className="text-xs font-normal opacity-80">
+                      /month
+                    </span>
+                  </div>
+                )}
+              </span>
+            )}
+            {voicebotActive && (
+              <span>
+                <h2>Voicebot</h2>
+                {voicebotPricing.usage === "high" ? (
+                  <div className="mt-2 bg-white text-yellow-400 text-xl font-bold p-3 rounded-md mb-6">
+                    <p className="text-sm">Contact Sales</p>
+                  </div>
+                ) : (
+                  <span className="text-2xl font-bold">
+                    {formatPrice(convertPrice(voicebotPricing.totalPrice))}
+                    <span className="text-sm font-normal text-white">
+                      / month
+                    </span>
+                  </span>
+                )}
+              </span>
             )}
           </div>
-          <div className="text-xs opacity-80">Total estimated cost</div>
+          <div className="text-xs opacity-80">
+            Current & Total estimated cost for {chatbotActive && "Chatbot"}{" "}
+            {chatbotActive && voicebotActive && " & "}
+            {voicebotActive && "Voicebot"}
+          </div>
         </div>
-        <Button className="bg-[#FDB137] hover:bg-[#f0a52c] text-white">
-          Start free trial
-        </Button>
       </div>
     );
   };
@@ -391,9 +418,9 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
           suits your needs
         </p>
         {/* Mobile Price Summary */}
-        {/* <div className="md:hidden bg-blue-50 p-4 rounded-lg mb-6">
+        <div className="md:hidden bg-blue-50 p-4 rounded-lg mb-6">
           <div className="flex justify-between items-center">
-            <div>
+            {/* <div>
               <div className="text-sm text-gray-600">Current estimate:</div>
               <div className="text-xl font-bold text-blue-600">
                 {convertPrice(totalPrice) >= 1000 ? (
@@ -405,12 +432,28 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
                   </>
                 )}
               </div>
-            </div>
+            </div> */}
+            {/* {chatbotActive && (
+              <span>
+                {chatbotPricing.usage === "highIntelligence" ? (
+                  <div className="mt-2 bg-white text-yellow-400 text-xl font-bold p-3 rounded-md mb-6">
+                    <p className="text-xs">Contact Sales</p>
+                  </div>
+                ) : (
+                  <div className="flex-col text-2xl font-bold mb-6">
+                    {formatPrice(convertPrice(chatbotPricing.totalPrice))}{" "}
+                    <span className="text-xs font-normal opacity-80">
+                      /month
+                    </span>
+                  </div>
+                )}
+              </span>
+            )} */}
             <div className="text-xs text-gray-500">
               {country === "IN" ? "₹ Indian Rupees" : "$ US Dollars"}
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -1147,7 +1190,7 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
         </div>
 
         {/* Custom Package Summary */}
-        <div className="bg-blue-600 mb-10 text-white p-6 rounded-lg shadow-sm">
+        <div className="bg-blue-600 mb-24 text-white p-6 rounded-lg shadow-sm">
           <div className="flex items-center justify-center mb-6">
             <div className="flex items-center justify-center gap-2">
               <span
@@ -1355,7 +1398,7 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
           )}
         </div>
       </div>
-     {/*  <FloatingPriceDisplay /> */}
+      <FloatingPriceDisplay />
     </section>
   );
 }
