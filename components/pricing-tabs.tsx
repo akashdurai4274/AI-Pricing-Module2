@@ -23,7 +23,7 @@ export default function PricingTabs() {
     <div className="">
       <div className=" px-4 sm:px-8 md:px-16 lg:px-24 xl:px-36 ">
         <div className="max-w-xl mx-auto mb-8">
-          <div className="flex rounded-lg overflow-hidden shadow-sm p-1 border-[2px] border-yellow-200  bg-white">
+          <div className="flex rounded-lg overflow-hidden shadow-sm p-1  bg-white">
             <button
               onClick={() => setActiveTab("chatbot")}
               className={`w-1/2 py-3 md:py-5 text-base md:text-xl font-medium transition-colors rounded-lg ${
