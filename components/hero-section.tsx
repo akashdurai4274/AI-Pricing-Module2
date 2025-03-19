@@ -5,9 +5,9 @@ import Star from "./Star";
 export default function HeroSection() {
   return (
     <section className="py-16 text-center relative">
-      <div className="absolute top-[-110px] left-[0px] right-0 flex justify-center items-center  ">
+      {/*  <div className="absolute top-[-110px] left-[0px] right-0 flex justify-center items-center  ">
         <img src="/border.png" alt="border" className="bw-[38%] h-full " />
-      </div>
+      </div> */}
 
       <div className="max-w-4xl mx-auto ">
         <Star />
