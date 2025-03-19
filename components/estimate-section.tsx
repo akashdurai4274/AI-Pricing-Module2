@@ -351,8 +351,8 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
       {/*  <div className="absolute top-[-80px] left-[100px] right-0 flex justify-start items-center  ">
         <img src="/border.png" alt="border" className="bw-[28%] h-[8%] z-20" />
       </div> */}
-      <div className="relative mb-8">
-        <Star2 />
+      <div className="mb-8">
+        {/* <Star2 /> */}
         <h2 className="text-2xl md:text-3xl font-bold mb-2 flex flex-col leading-10">
           Estimate your{" "}
           <div>
