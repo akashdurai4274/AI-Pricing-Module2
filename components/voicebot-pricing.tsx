@@ -3,6 +3,7 @@
 import { Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCountry } from "@/context/country-context";
+import { useEffect, useState } from "react";
 
 interface VoicebotPricingProps {
   onCalculatePrice: (plan: string) => void;
@@ -11,7 +12,25 @@ interface VoicebotPricingProps {
 export default function VoicebotPricing({
   onCalculatePrice,
 }: VoicebotPricingProps) {
-  const { formatPrice, convertPrice } = useCountry();
+  const { formatPrice, convertPrice, country } = useCountry();
+  const [mounted, setMounted] = useState(false);
+  const [forceUpdate, setForceUpdate] = useState(0);
+
+  // Ensure hydration matching and listen for currency changes
+  useEffect(() => {
+    setMounted(true);
+
+    // Listen for currency changes
+    const handleCurrencyChange = () => {
+      setForceUpdate((prev) => prev + 1);
+    };
+
+    window.addEventListener("countryChanged", handleCurrencyChange);
+
+    return () => {
+      window.removeEventListener("countryChanged", handleCurrencyChange);
+    };
+  }, []);
 
   const fluentPrice = 14999;
   const lucidPrice = 39999;
@@ -26,6 +45,10 @@ export default function VoicebotPricing({
     }
   };
 
+  if (!mounted) {
+    return null; // Prevent hydration mismatch
+  }
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
       {/* Fluent Plan */}
@@ -33,8 +56,8 @@ export default function VoicebotPricing({
         <h3 className="text-lg md:text-xl font-semibold text-blue-600 mb-1">
           Fluent
         </h3>
-        <p className="text-sm text-gray-500 mb-4">Month</p>
-
+        {/*         <p className="text-sm text-gray-500 mb-4">Month</p>
+         */}
         <div className="mb-4">
           <span className="text-xl md:text-2xl font-bold">
             {formatPrice(convertPrice(fluentPrice))}
@@ -78,7 +101,7 @@ export default function VoicebotPricing({
             <div className="bg-blue-100 rounded-full p-1 mr-2">
               <Check size={14} className="text-blue-600" />
             </div>
-            <span>₹6 per Extra Minute</span>
+            <span>{country === "IN" ? "₹6" : "$0.08"} per Extra Minute</span>
           </li>
           <li className="flex items-start">
             <div className="bg-blue-100 rounded-full p-1 mr-2">
@@ -104,7 +127,6 @@ export default function VoicebotPricing({
         <h3 className="text-lg md:text-xl font-semibold text-blue-600 mb-1">
           Lucid
         </h3>
-        <p className="text-sm text-gray-500 mb-4">Month</p>
 
         <div className="mb-4">
           <span className="text-xl md:text-2xl font-bold">
@@ -149,7 +171,7 @@ export default function VoicebotPricing({
             <div className="bg-blue-100 rounded-full p-1 mr-2">
               <Check size={14} className="text-blue-600" />
             </div>
-            <span>₹8 per Extra Minute</span>
+            <span>{country === "IN" ? "₹8" : "$0.10"} per Extra Minute</span>{" "}
           </li>
           <li className="flex items-start">
             <div className="bg-blue-100 rounded-full p-1 mr-2">
