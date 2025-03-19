@@ -112,7 +112,7 @@ export default function ChatbotPricing({
           </ul>
         </div>
 
-        <Button className="w-full bg-white text-black border border-gray-200 hover:bg-gray-50">
+        <Button className="w-full border border-[#FDB137] text-[#FDB137] font-semibold py-3 px-6 rounded-lg shadow-md shadow-[#FDB137]/50 bg-white transition">
           Choose plan
         </Button>
       </div>
@@ -179,7 +179,7 @@ export default function ChatbotPricing({
           </ul>
         </div>
 
-        <Button className="w-full bg-white text-black border border-gray-200 hover:bg-gray-50">
+        <Button className="w-full border border-[#FDB137] text-[#FDB137] font-semibold py-3 px-6 rounded-lg shadow-md shadow-[#FDB137]/50 bg-white transition">
           Choose plan
         </Button>
       </div>
