@@ -3,6 +3,7 @@
 import { Check, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCountry } from "@/context/country-context";
+import { useEffect, useState } from "react";
 
 interface ChatbotPricingProps {
   onCalculatePrice: (plan: string) => void;
@@ -12,7 +13,24 @@ export default function ChatbotPricing({
   onCalculatePrice,
 }: ChatbotPricingProps) {
   const { formatPrice, convertPrice } = useCountry();
+  const [mounted, setMounted] = useState(false);
+  const [forceUpdate, setForceUpdate] = useState(0);
 
+  // Ensure hydration matching and listen for currency changes
+  useEffect(() => {
+    setMounted(true);
+
+    // Listen for currency changes
+    const handleCurrencyChange = () => {
+      setForceUpdate((prev) => prev + 1);
+    };
+
+    window.addEventListener("countryChanged", handleCurrencyChange);
+
+    return () => {
+      window.removeEventListener("countryChanged", handleCurrencyChange);
+    };
+  }, []);
   const intelligencePrice = 1999;
   const superIntelligencePrice = 6999;
 
@@ -26,6 +44,10 @@ export default function ChatbotPricing({
     }
   };
 
+  if (!mounted) {
+    return null; // Prevent hydration mismatch
+  }
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
       {/* Intelligence Plan */}
@@ -36,7 +58,9 @@ export default function ChatbotPricing({
         <p className="text-sm text-gray-500 mb-4">for support automation</p>
 
         <div className="mb-4">
-          <span className="text-2xl font-bold">₹1,999</span>
+          <span className="text-xl md:text-2xl font-bold">
+            {formatPrice(convertPrice(intelligencePrice))}
+          </span>
           <span className="text-gray-500 text-sm">/month</span>
         </div>
 
@@ -101,7 +125,9 @@ export default function ChatbotPricing({
         <p className="text-sm text-gray-500 mb-4">for lead generation</p>
 
         <div className="mb-4">
-          <span className="text-2xl font-bold">₹6,999</span>
+          <span className="text-xl md:text-2xl font-bold">
+            {formatPrice(convertPrice(superIntelligencePrice))}
+          </span>
           <span className="text-gray-500 text-sm">/month</span>
         </div>
 
