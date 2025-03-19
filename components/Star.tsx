@@ -2,7 +2,8 @@ import React from "react";
 
 const Star = () => {
   return (
-    <div className="absolute top-0 left-20">
+    <div className="relative">
+      <div className="absolute top-0 left-20">
       <svg
         width="50"
         height="51"
@@ -17,6 +18,7 @@ const Star = () => {
           fill="#424BD1"
         />
       </svg>
+    </div>
     </div>
   );
 };
