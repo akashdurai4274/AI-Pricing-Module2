@@ -320,26 +320,6 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
       ref={calculatorRef}
     >
       <div className="relative mb-8">
-        <div className="absolute top-0 right-4 md:right-20">
-          <div className="text-yellow-500">
-            <svg
-              width="40"
-              height="40"
-              viewBox="0 0 40 40"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20 10L25 15M25 15L30 20M25 15L20 20M25 15L30 10"
-                stroke="#FDB137"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-        </div>
-
         <h2 className="text-2xl md:text-3xl font-bold mb-2">
           Estimate your{" "}
           <span className="bg-blue-100 text-blue-600 px-2 py-1 rounded">
@@ -843,7 +823,7 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
                   )}
                 </div>
 
-                <div className="text-xl font-bold">
+                <div className="text-xl font-bold mt-4">
                   ₹{voicebotPricing.extraMinRate}/minute
                 </div>
                 {/*  <div className="text-xs text-gray-500 mt-1">
