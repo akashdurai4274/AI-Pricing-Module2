@@ -28,7 +28,7 @@ export default function EstimateSection() {
   // Voicebot addons
   const [voicebotAddons, setVoicebotAddons] = useState({
     multipleLanguages: false,
-    customVoice: false,
+    customVoice: true,
     cloudTelephony: true,
     noTringBranding: false,
   })
@@ -757,7 +757,7 @@ export default function EstimateSection() {
                 <div className="md:w-1/2 flex justify-center">
                   <div className="relative w-full">
                     <img
-                      src="image.png"
+                      src="/image.png"
                       alt="Voicebot Interface"
                       width={100}
                       height={100}
@@ -871,13 +871,7 @@ export default function EstimateSection() {
 
                 <div className="md:w-1/2 flex justify-center">
                   <div className="relative w-48">
-                    <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Pd7Bf02x9WLk9TxB4glRduQZ5la2i3.png"
-                      alt="Chatbot Interface"
-                      width={200}
-                      height={400}
-                      className="rounded-lg"
-                    />
+                    <Image src="/chat.png" alt="Chatbot Interface" width={200} height={400} className="rounded-lg" />
                     <div className="absolute -bottom-4 -right-4">
                       <div className="bg-blue-100 rounded-full p-2">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
