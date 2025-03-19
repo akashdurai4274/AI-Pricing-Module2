@@ -118,7 +118,7 @@ export default function VoicebotPricing({
         </ul>
 
         <Button className=" mt-5 w-full border border-[#FDB137] text-[#FDB137] font-semibold py-3 px-6 rounded-lg shadow-md shadow-[#FDB137]/50 bg-white transition">
-          Start Free Trial
+          Choose plan
         </Button>
       </div>
 
@@ -188,7 +188,7 @@ export default function VoicebotPricing({
         </ul>
 
         <Button className="w-full border border-[#FDB137] text-[#FDB137] font-semibold py-3 px-6 rounded-lg shadow-md shadow-[#FDB137]/50 bg-white transition">
-          Start Free Trial
+          Choose plan
         </Button>
       </div>
 
@@ -251,7 +251,7 @@ export default function VoicebotPricing({
         </ul>
 
         <Button className="w-full bg-[#FDB137] hover:bg-[#f0a52c] text-white">
-          Start Free Trial
+          Choose plan
         </Button>
       </div>
     </div>
