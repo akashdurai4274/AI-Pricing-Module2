@@ -113,7 +113,7 @@ export default function ChatbotPricing({
         </div>
 
         <Button className="w-full bg-white text-black border border-gray-200 hover:bg-gray-50">
-          Start free trial
+          Choose plan
         </Button>
       </div>
 
@@ -180,7 +180,7 @@ export default function ChatbotPricing({
         </div>
 
         <Button className="w-full bg-white text-black border border-gray-200 hover:bg-gray-50">
-          Start free trial
+          Choose plan
         </Button>
       </div>
 
