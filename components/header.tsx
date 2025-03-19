@@ -39,7 +39,8 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Mobile menu button */}
+        <div className="flex items-center gap-2">
+          {/* Mobile menu button */}
         <button
           className="md:hidden flex items-center"
           onClick={toggleMobileMenu}
@@ -139,6 +140,7 @@ export default function Header() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+        </div>
         </div>
       </div>
       {/* Mobile menu */}
