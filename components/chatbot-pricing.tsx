@@ -1,34 +1,38 @@
-"use client"
+"use client";
 
-import { Check, Plus } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useCountry } from "@/context/country-context"
+import { Check, Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useCountry } from "@/context/country-context";
 
 interface ChatbotPricingProps {
-  onCalculatePrice: (plan: string) => void
+  onCalculatePrice: (plan: string) => void;
 }
 
-export default function ChatbotPricing({ onCalculatePrice }: ChatbotPricingProps) {
-  const { formatPrice, convertPrice } = useCountry()
+export default function ChatbotPricing({
+  onCalculatePrice,
+}: ChatbotPricingProps) {
+  const { formatPrice, convertPrice } = useCountry();
 
-  const intelligencePrice = 1999
-  const superIntelligencePrice = 6999
+  const intelligencePrice = 1999;
+  const superIntelligencePrice = 6999;
 
   const handleCalculatePrice = (plan: string) => {
     // Call the global function if it exists
     if (typeof window !== "undefined" && window.selectPlanAndScroll) {
-      window.selectPlanAndScroll("chatbot", plan)
+      window.selectPlanAndScroll("chatbot", plan);
     } else {
       // Fallback to the prop function
-      onCalculatePrice(plan)
+      onCalculatePrice(plan);
     }
-  }
+  };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
       {/* Intelligence Plan */}
       <div className="bg-white rounded-lg p-6 shadow-sm">
-        <h3 className="text-xl font-semibold text-blue-600 mb-1">Intelligence</h3>
+        <h3 className="text-xl font-semibold text-blue-600 mb-1">
+          Intelligence
+        </h3>
         <p className="text-sm text-gray-500 mb-4">for support automation</p>
 
         <div className="mb-4">
@@ -36,7 +40,10 @@ export default function ChatbotPricing({ onCalculatePrice }: ChatbotPricingProps
           <span className="text-gray-500 text-sm">/month</span>
         </div>
 
-        <button onClick={() => handleCalculatePrice("intelligence")} className="text-blue-600 text-sm mb-6 underline">
+        <button
+          onClick={() => handleCalculatePrice("intelligence")}
+          className="text-blue-600 text-sm mb-6 underline"
+        >
           Calculate your price
         </button>
 
@@ -81,12 +88,16 @@ export default function ChatbotPricing({ onCalculatePrice }: ChatbotPricingProps
           </ul>
         </div>
 
-        <Button className="w-full bg-white text-black border border-gray-200 hover:bg-gray-50">Start free trial</Button>
+        <Button className="w-full bg-white text-black border border-gray-200 hover:bg-gray-50">
+          Start free trial
+        </Button>
       </div>
 
       {/* Super Intelligence Plan */}
       <div className="bg-white rounded-xl p-6 shadow-sm">
-        <h3 className="text-xl font-semibold text-blue-600 mb-1">Super Intelligence</h3>
+        <h3 className="text-xl font-semibold text-blue-600 mb-1">
+          Super Intelligence
+        </h3>
         <p className="text-sm text-gray-500 mb-4">for lead generation</p>
 
         <div className="mb-4">
@@ -142,7 +153,9 @@ export default function ChatbotPricing({ onCalculatePrice }: ChatbotPricingProps
           </ul>
         </div>
 
-        <Button className="w-full bg-white text-black border border-gray-200 hover:bg-gray-50">Start free trial</Button>
+        <Button className="w-full bg-white text-black border border-gray-200 hover:bg-gray-50">
+          Start free trial
+        </Button>
       </div>
 
       {/* Enterprise Plan */}
@@ -154,7 +167,9 @@ export default function ChatbotPricing({ onCalculatePrice }: ChatbotPricingProps
           <span className="text-2xl font-bold">Talk to sales</span>
         </div>
 
-        <button className="text-white text-sm mb-6 underline">Contact us</button>
+        <button className="text-white text-sm mb-6 underline">
+          Contact us
+        </button>
 
         <ul className="space-y-3 mb-6">
           <li className="flex items-start">
@@ -197,9 +212,10 @@ export default function ChatbotPricing({ onCalculatePrice }: ChatbotPricingProps
           </ul>
         </div>
 
-        <Button className="w-full bg-[#FDB137] hover:bg-[#f0a52c] text-white">Contact sales</Button>
+        <Button className="w-full bg-[#FDB137] hover:bg-[#f0a52c] text-white">
+          Contact sales
+        </Button>
       </div>
     </div>
-  )
+  );
 }
-
