@@ -7,11 +7,17 @@ import { Switch } from "@/components/ui/switch";
 import { useCountry } from "@/context/country-context";
 import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export default function EstimateSection({ activeTab }: { activeTab: string }) {
   console.log("activeTab " + activeTab);
   const { formatPrice, convertPrice, country } = useCountry();
-  
+
   const [chatbotActive, setChatbotActive] = useState(activeTab === "chatbot");
   const [voicebotActive, setVoicebotActive] = useState(
     activeTab === "voicebot"
@@ -34,6 +40,7 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
   const [minuteCount, setMinuteCount] = useState(1500);
   const [billingPeriod, setBillingPeriod] = useState("monthly");
   const calculatorRef = useRef<HTMLDivElement>(null);
+  const voicebotRef = useRef<HTMLDivElement>(null);
   const [selectedChatbotPlan, setSelectedChatbotPlan] =
     useState("intelligence");
   const [selectedVoicebotPlan, setSelectedVoicebotPlan] = useState("fluent");
@@ -41,7 +48,7 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
   // Chatbot addons
   const [chatbotAddons, setChatbotAddons] = useState({
     leadGeneration: true,
-    whatsapp: false,
+    whatsapp: true,
     crmIntegration: false,
     noTringBranding: false,
   });
@@ -280,6 +287,9 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
     if (calculatorRef.current) {
       calculatorRef.current.scrollIntoView({ behavior: "smooth" });
     }
+    if (voicebotRef.current) {
+      voicebotRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   // Set a specific plan and scroll to calculator
@@ -358,10 +368,11 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
                 <span className="text-sm font-normal">/month</span>
               </div>
             </div>
-            <div className="text-xs text-gray-500">{country === "IN" ? "₹ Indian Rupees" : "$ US Dollars"}</div>
+            <div className="text-xs text-gray-500">
+              {country === "IN" ? "₹ Indian Rupees" : "$ US Dollars"}
+            </div>
           </div>
         </div>
-
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -491,7 +502,7 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
                 </div>
               </div>
 
-              <div className="border-t pt-4">
+              <div className="border-t pt-4 mt-auto">
                 <h3 className="font-medium mb-2">AI Chat + WhatsApp</h3>
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-4">
@@ -543,6 +554,100 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
                       <span>Meta</span>
                     </div>
                   )}
+                </div>
+                <div className="mt-3 text-sm text-gray-500">
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="item-1">
+                      <AccordionTrigger>
+                        <h2 className="text-sm no-underline text-yellow-500 font-medium mb-2">
+                          Pricing breakdown
+                        </h2>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="flex justify-between">
+                          <span>
+                            Base price (
+                            {selectedChatbotPlan === "intelligence"
+                              ? "Intelligence"
+                              : "Super Intelligence"}
+                            ):
+                          </span>
+                          <span>
+                            {formatPrice(
+                              convertPrice(chatbotPricing.basePrice)
+                            )}
+                          </span>
+                        </div>
+                        {chatCount >
+                          (selectedChatbotPlan === "intelligence"
+                            ? 60
+                            : 250) && (
+                          <div className="flex justify-between">
+                            <span>
+                              Extra chats (
+                              {chatCount -
+                                (selectedChatbotPlan === "intelligence"
+                                  ? 60
+                                  : 250)}{" "}
+                              ×{" "}
+                              {formatPrice(
+                                convertPrice(
+                                  selectedChatbotPlan === "intelligence"
+                                    ? 10
+                                    : 8
+                                )
+                              )}
+                              /chat):
+                            </span>
+                            <span>
+                              {formatPrice(
+                                convertPrice(
+                                  (chatCount -
+                                    (selectedChatbotPlan === "intelligence"
+                                      ? 60
+                                      : 250)) *
+                                    (selectedChatbotPlan === "intelligence"
+                                      ? 10
+                                      : 8)
+                                )
+                              )}
+                            </span>
+                          </div>
+                        )}
+
+                        {/* Add-ons breakdown */}
+                        {chatbotAddons.whatsapp && (
+                          <div className="flex justify-between">
+                            <span>
+                              WhatsApp integration ({chatCount} chats ×{" "}
+                              {formatPrice(convertPrice(0.5))}/chat):
+                            </span>
+                            <span>
+                              {formatPrice(convertPrice(chatCount * 0.5))}
+                            </span>
+                          </div>
+                        )}
+
+                        {chatbotAddons.noTringBranding && (
+                          <div className="flex justify-between">
+                            <span>No Tring AI branding:</span>
+                            <span>{formatPrice(convertPrice(499))}</span>
+                          </div>
+                        )}
+
+                        <div className="flex justify-between font-medium mt-1 pt-1 border-t border-gray-200">
+                          <span>Total:</span>
+                          <span>
+                            {formatPrice(
+                              convertPrice(chatbotPricing.totalPrice)
+                            )}
+                          </span>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+
+                  {/* Extra chats breakdown */}
                 </div>
               </div>
             </div>
@@ -620,7 +725,10 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
 
           {/* Voicebot Calculator */}
           {!voicebotActive && (
-            <div className="bg-gradient-to-br from-yellow-50 to-pink-50 p-6 rounded-lg shadow-sm border w-full">
+            <div
+              className="bg-gradient-to-br from-yellow-50 to-pink-50 p-6 rounded-lg shadow-sm border w-full"
+              ref={voicebotRef}
+            >
               <div className="flex flex-col gap-6">
                 <div className="md:w-full">
                   <h3 className="text-xl font-bold text-gray-800 mb-2">
@@ -693,7 +801,7 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
             </div>
           )}
           {voicebotActive && (
-            <div className="bg-white p-6 rounded-lg shadow-sm">
+            <div className="bg-white p-6 rounded-lg shadow-sm h-auto">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold">Voicebot</h3>
                 <div className="flex items-center gap-4">
@@ -737,7 +845,7 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 xs:grid-cols-2 gap-3 md:gap-4 mb-6">
+              <div className="grid grid-cols-2 xs:grid-cols-2 gap-3 md:gap-4 mb-4">
                 <div>
                   <h4 className="text-xs font-medium mb-2">Basics</h4>
                   <div className="space-y-2">
@@ -776,7 +884,6 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
                     </div>
                   </div>
                 </div>
-
                 <div>
                   <h4 className="text-xs font-medium mb-2">Addons</h4>
                   <div className="space-y-2">
@@ -819,24 +926,8 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
 
               <div className="border-t pt-4">
                 <h3 className="font-medium mb-2">AI Call + Custom Voice</h3>
-                {/* <div className="flex flex-wrap items-center gap-2 mb-4">
-                  <div className="bg-blue-600 text-white text-xs px-2 py-1 rounded">
-                    Tring AI
-                    <div>Chatbot</div>
-                  </div>
-                  {voicebotAddons.cloudTelephony && (
-                    <div className="bg-blue-400 text-white text-xs px-2 py-1 rounded">
-                      Plivo
-                      <div>Telephony</div>
-                    </div>
-                  )}
-                  {voicebotAddons.customVoice && (
-                    <div className="bg-orange-500 text-white text-xs px-2 py-1 rounded">
-                      ElevenLabs
-                      <div>Custom voice</div>
-                    </div>
-                  )} */}
-                <div className="flex items-center gap-4 overflow-x-auto">
+
+                <div className="flex items-center gap-4">
                   <div className="bg-slate-200 w-auto font-bold text-blue-700 text-sm p-3 rounded">
                     Tring AI
                     <div className="text-xs text-gray-500">Voicebot</div>
@@ -855,7 +946,7 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
                   )}
                 </div>
 
-                <div className="text-xl font-bold mt-4">
+                <div className="text-xl font-bold mt-6">
                   ₹{voicebotPricing.extraMinRate}/minute
                 </div>
                 {/*  <div className="text-xs text-gray-500 mt-1">
@@ -901,6 +992,116 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
                       <span>ElevenLabs</span>
                     </div>
                   )}
+                </div>
+                <div className="mt-3 text-sm text-gray-500">
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="item-1">
+                      <AccordionTrigger>
+                        <h2 className="text-sm text-yellow-500 font-medium mb-2">
+                          Pricing breakdown
+                        </h2>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="flex justify-between">
+                          <span>Base price ({voicebotPricing.plan}):</span>
+                          <span>
+                            {formatPrice(
+                              convertPrice(voicebotPricing.basePrice)
+                            )}
+                          </span>
+                        </div>
+
+                        {/* Extra minutes breakdown */}
+                        {minuteCount > voicebotPricing.freeMinsLimit && (
+                          <div className="flex justify-between">
+                            <span>
+                              Extra minutes (
+                              {minuteCount - voicebotPricing.freeMinsLimit} ×{" "}
+                              {formatPrice(
+                                convertPrice(voicebotPricing.extraMinRate)
+                              )}
+                              /min):
+                            </span>
+                            <span>
+                              {formatPrice(
+                                convertPrice(
+                                  (minuteCount -
+                                    voicebotPricing.freeMinsLimit) *
+                                    voicebotPricing.extraMinRate
+                                )
+                              )}
+                            </span>
+                          </div>
+                        )}
+
+                        {/* Add-ons breakdown */}
+                        {voicebotAddons.customVoice && (
+                          <div className="flex justify-between">
+                            <span>Custom voice:</span>
+                            <span>
+                              {minuteCount <= 500
+                                ? formatPrice(convertPrice(8250))
+                                : minuteCount <= 2000
+                                ? formatPrice(convertPrice(27390))
+                                : formatPrice(
+                                    convertPrice(
+                                      Math.min(minuteCount * 13.7, 50000)
+                                    )
+                                  )}
+                            </span>
+                          </div>
+                        )}
+
+                        {voicebotAddons.cloudTelephony && (
+                          <div className="flex justify-between">
+                            <span>Cloud telephony:</span>
+                            <span>
+                              {/* {formatPrice(
+                                convertPrice(260 + minuteCount * 0.4)
+                              )} */}
+                              0
+                            </span>
+                          </div>
+                        )}
+
+                        {voicebotAddons.multipleLanguages && (
+                          <div className="flex justify-between">
+                            <span>Multiple languages:</span>
+                            <span>
+                              {formatPrice(
+                                convertPrice(
+                                  voicebotAddons.customVoice
+                                    ? minuteCount <= 500
+                                      ? 8250 * 0.2
+                                      : minuteCount <= 2000
+                                      ? 27390 * 0.2
+                                      : Math.min(minuteCount * 13.7, 50000) *
+                                        0.2
+                                    : 1500
+                                )
+                              )}
+                            </span>
+                          </div>
+                        )}
+
+                        {voicebotAddons.noTringBranding && (
+                          <div className="flex justify-between">
+                            <span>No Tring AI branding:</span>
+                            <span>{formatPrice(convertPrice(999))}</span>
+                          </div>
+                        )}
+
+                        <div className="flex justify-between font-medium mt-1 pt-1 border-t border-gray-200">
+                          <span>Total:</span>
+                          <span>
+                            {formatPrice(
+                              convertPrice(voicebotPricing.totalPrice)
+                            )}
+                          </span>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
                 </div>
               </div>
             </div>
