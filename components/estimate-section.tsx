@@ -41,7 +41,7 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
   // Chatbot addons
   const [chatbotAddons, setChatbotAddons] = useState({
     leadGeneration: true,
-    whatsapp: true,
+    whatsapp: false,
     crmIntegration: false,
     noTringBranding: false,
   });
