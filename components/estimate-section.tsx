@@ -29,7 +29,7 @@ export default function EstimateSection() {
   // Voicebot addons
   const [voicebotAddons, setVoicebotAddons] = useState({
     multipleLanguages: false,
-    customVoice: true,
+    customVoice: false,
     cloudTelephony: true,
     noTringBranding: false,
   });
