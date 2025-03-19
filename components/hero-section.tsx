@@ -5,23 +5,6 @@ export default function HeroSection() {
     <section className="py-16 text-center relative">
       <div className="absolute top-0 left-0 w-full h-full">
         <div className="absolute top-10 left-20">
-          <div className="text-blue-600">
-            <svg
-              width="40"
-              height="40"
-              viewBox="0 0 40 40"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10 20L15 15M15 15L20 10M15 15L10 10M15 15L20 20"
-                stroke="#4F46E5"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
         </div>
       </div>
 
