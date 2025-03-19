@@ -326,13 +326,35 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
     window.selectPlanAndScroll = selectPlanAndScroll;
   }, []);
 
-  const FloatingPriceDisplay = () => {
+  /* const FloatingPriceDisplay = () => {
     return (
       <div className="fixed bottom-0 left-0 right-0 bg-blue-600 text-white p-4 shadow-lg md:hidden z-50 flex justify-between items-center">
         <div>
           <div className="text-lg font-bold">
             {formatPrice(convertPrice(totalPrice))}
             <span className="text-sm font-normal opacity-80">/month</span>
+          </div>
+          <div className="text-xs opacity-80">Total estimated cost</div>
+        </div>
+        <Button className="bg-[#FDB137] hover:bg-[#f0a52c] text-white">
+          Start free trial
+        </Button>
+      </div>
+    );
+  }; */
+  const FloatingPriceDisplay = () => {
+    return (
+      <div className="fixed bottom-0 left-0 right-0 bg-blue-600 text-white p-4 shadow-lg md:hidden z-50 flex justify-between items-center">
+        <div>
+          <div className="text-lg font-bold">
+            {totalPrice > 1000 ? (
+              "Contact Sales"
+            ) : (
+              <>
+                {formatPrice(convertPrice(totalPrice))}
+                <span className="text-sm font-normal opacity-80">/month</span>
+              </>
+            )}
           </div>
           <div className="text-xs opacity-80">Total estimated cost</div>
         </div>
@@ -369,20 +391,26 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
           suits your needs
         </p>
         {/* Mobile Price Summary */}
-        <div className="md:hidden bg-blue-50 p-4 rounded-lg mb-6">
+        {/* <div className="md:hidden bg-blue-50 p-4 rounded-lg mb-6">
           <div className="flex justify-between items-center">
             <div>
               <div className="text-sm text-gray-600">Current estimate:</div>
               <div className="text-xl font-bold text-blue-600">
-                {formatPrice(convertPrice(totalPrice))}
-                <span className="text-sm font-normal">/month</span>
+                {convertPrice(totalPrice) >= 1000 ? (
+                  "Contact Sales"
+                ) : (
+                  <>
+                    {formatPrice(convertPrice(totalPrice))}
+                    <span className="text-sm font-normal">/month</span>
+                  </>
+                )}
               </div>
             </div>
             <div className="text-xs text-gray-500">
               {country === "IN" ? "₹ Indian Rupees" : "$ US Dollars"}
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -1327,7 +1355,7 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
           )}
         </div>
       </div>
-      <FloatingPriceDisplay />
+     {/*  <FloatingPriceDisplay /> */}
     </section>
   );
 }
