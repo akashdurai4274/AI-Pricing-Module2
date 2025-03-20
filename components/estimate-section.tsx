@@ -507,7 +507,8 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
               </div>
 
               <div className="grid grid-cols-2 xs:grid-cols-2 gap-3 md:gap-4 mb-6">
-                <div>
+                {selectedChatbotPlan !== "intelligence" && (
+                  <div>
                   <h4 className="text-xs font-medium mb-2">Basics</h4>
                   <div className="space-y-2">
                     <div className="flex items-center">
@@ -542,6 +543,7 @@ export default function EstimateSection({ activeTab }: { activeTab: string }) {
                     </div>
                   </div>
                 </div>
+                )}
 
                 <div>
                   <h4 className="text-xs font-medium mb-2">Addons</h4>
